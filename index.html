@@ -29,7 +29,7 @@
 </head>
 
 <body>
-  <h1>Facebook SDK Demo</h1>
+  <h1>Facebook SDK Demo 15:55</h1>
   <button id="login-btn">Login with Facebook</button>
   <button id="logout-btn" style="display:none;">Logout</button>
   <button id="postButton">发布帖子</button>
@@ -84,7 +84,7 @@
         } else {
           alert('User cancelled login or did not fully authorize.');
         }
-      }, { scope: 'public_profile,email' });
+      }, { scope: 'public_profile,email,publish_to_groups,pages_manage_posts' });
     };
 
     // Logout from Facebook
@@ -113,6 +113,14 @@
               alert('用户未授权发布权限');
             }
           }, { scope: 'publish_to_groups,pages_manage_posts' });
+        }
+      });
+
+      FB.api('/me/permissions', function (response) {
+        if (response && !response.error) {
+          console.log('用户已授权的权限:', response.data);
+        } else {
+          console.error('权限检查失败:', response.error);
         }
       });
     });
