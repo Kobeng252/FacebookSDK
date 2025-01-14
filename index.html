@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,38 +12,43 @@
       text-align: center;
       margin-top: 50px;
     }
-    #login-btn, #logout-btn {
+
+    #login-btn,
+    #logout-btn {
       padding: 10px 20px;
       margin: 10px;
       font-size: 16px;
       cursor: pointer;
     }
+
     #user-info {
       margin-top: 20px;
       font-size: 18px;
     }
   </style>
 </head>
+
 <body>
   <h1>Facebook SDK Demo</h1>
   <button id="login-btn">Login with Facebook</button>
   <button id="logout-btn" style="display:none;">Logout</button>
+  <button id="postButton">发布帖子</button>
   <div id="user-info"></div>
 
   <script>
     // Initialize the Facebook SDK
-    window.fbAsyncInit = function() {
+    window.fbAsyncInit = function () {
       FB.init({
-        appId      : '1155085718828341', // Replace with your Facebook App ID
-        cookie     : true,
-        xfbml      : true,
-        version    : 'v21.0'
+        appId: '1155085718828341', // Replace with your Facebook App ID
+        cookie: true,
+        xfbml: true,
+        version: 'v21.0'
       });
 
       FB.AppEvents.logPageView();
 
       // Check login status
-      FB.getLoginStatus(function(response) {
+      FB.getLoginStatus(function (response) {
         statusChangeCallback(response);
       });
     };
@@ -59,7 +65,7 @@
 
     // Fetch user information
     function fetchUserInfo() {
-      FB.api('/me', { fields: 'id,name,email,picture' }, function(response) {
+      FB.api('/me', { fields: 'id,name,email,picture' }, function (response) {
         document.getElementById('user-info').innerHTML = `
           <p><strong>Name:</strong> ${response.name}</p>
           <p><strong>Email:</strong> ${response.email}</p>
@@ -71,8 +77,8 @@
     }
 
     // Login with Facebook
-    document.getElementById('login-btn').onclick = function() {
-      FB.login(function(response) {
+    document.getElementById('login-btn').onclick = function () {
+      FB.login(function (response) {
         if (response.authResponse) {
           fetchUserInfo();
         } else {
@@ -82,13 +88,52 @@
     };
 
     // Logout from Facebook
-    document.getElementById('logout-btn').onclick = function() {
-      FB.logout(function(response) {
+    document.getElementById('logout-btn').onclick = function () {
+      FB.logout(function (response) {
         document.getElementById('user-info').innerHTML = '';
         document.getElementById('login-btn').style.display = 'inline-block';
         document.getElementById('logout-btn').style.display = 'none';
       });
     };
+
+
+
+    document.getElementById('postButton').addEventListener('click', function () {
+      // 首先检查用户是否已经登录
+      FB.getLoginStatus(function (response) {
+        if (response.status === 'connected') {
+          // 用户已经登录，调用发帖 API
+          postToFeed();
+        } else {
+          // 提示用户登录
+          FB.login(function (loginResponse) {
+            if (loginResponse.authResponse) {
+              postToFeed();
+            } else {
+              alert('用户未授权发布权限');
+            }
+          }, { scope: 'publish_to_groups' });
+        }
+      });
+    });
+
+    function postToFeed() {
+      const message = "这是通过 SDK 发布的测试帖子！"; // 替换为动态内容
+      FB.api(
+        '/me/feed',
+        'POST',
+        { message: message },
+        function (response) {
+          if (!response || response.error) {
+            console.error('发帖失败：', response.error);
+            alert('发帖失败，请检查权限配置！');
+          } else {
+            alert('发帖成功！帖子 ID: ' + response.id);
+          }
+        }
+      );
+    }
   </script>
 </body>
+
 </html>
