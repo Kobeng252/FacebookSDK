@@ -112,7 +112,7 @@
             } else {
               alert('用户未授权发布权限');
             }
-          }, { scope: 'publish_to_groups' });
+          }, { scope: 'publish_to_groups,pages_manage_posts' });
         }
       });
     });
@@ -121,6 +121,8 @@
       const message = "这是通过 SDK 发布的测试帖子！"; // 替换为动态内容
       FB.api(
         '/me/feed',
+        //群组发帖 '/{group-id}/feed',
+        //发布到页面 '/{page-id}/feed',
         'POST',
         { message: message },
         function (response) {
