@@ -29,7 +29,7 @@
 </head>
 
 <body>
-  <h1>Facebook SDK Demo 16:08</h1>
+  <h1>Facebook SDK Demo 16:14</h1>
   <button id="login-btn">Login with Facebook</button>
   <button id="logout-btn" style="display:none;">Logout</button>
   <button id="postButton">发布帖子</button>
@@ -112,24 +112,31 @@
             } else {
               alert('用户未授权发布权限');
             }
-          }, { scope: 'publish_to_groups,pages_manage_posts' });
+          }, { scope: 'public_profile,email' });
         }
       });
 
-      FB.api('/me/permissions', function (response) {
-        if (response && !response.error) {
-          console.log('用户已授权的权限:', response.data);
-        } else {
-          console.error('权限检查失败:', response.error);
-        }
-      });
+      // FB.api('/me/permissions', function (response) {
+      //   if (response && !response.error) {
+      //     console.log('用户已授权的权限:', response.data);
+      //   } else {
+      //     console.error('权限检查失败:', response.error);
+      //   }
+      // });
     });
 
     function postToFeed() {
       FB.ui({
         method: 'share',
-        href: 'https://developers.facebook.com/docs/'
-      }, function (response) { });
+        href: 'https://www.baidu.com',
+      }, function (response) {
+        if (response && !response.error_message) {
+          console.log('分享成功');
+        } else {
+          console.error('分享失败:', response.error_message);
+        }
+      });
+
       // const message = "这是通过 SDK 发布的测试帖子！"; // 替换为动态内容
       // FB.api(
       //   '/me/feed',
