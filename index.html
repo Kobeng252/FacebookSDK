@@ -29,7 +29,7 @@
 </head>
 
 <body>
-  <h1>Facebook SDK Demo 15:55</h1>
+  <h1>Facebook SDK Demo 16:08</h1>
   <button id="login-btn">Login with Facebook</button>
   <button id="logout-btn" style="display:none;">Logout</button>
   <button id="postButton">发布帖子</button>
@@ -84,7 +84,7 @@
         } else {
           alert('User cancelled login or did not fully authorize.');
         }
-      }, { scope: 'public_profile,email,publish_to_groups,pages_manage_posts' });
+      }, { scope: 'public_profile,email' });
     };
 
     // Logout from Facebook
@@ -126,22 +126,26 @@
     });
 
     function postToFeed() {
-      const message = "这是通过 SDK 发布的测试帖子！"; // 替换为动态内容
-      FB.api(
-        '/me/feed',
-        //群组发帖 '/{group-id}/feed',
-        //发布到页面 '/{page-id}/feed',
-        'POST',
-        { message: message },
-        function (response) {
-          if (!response || response.error) {
-            console.error('发帖失败：', response.error);
-            alert('发帖失败，请检查权限配置！');
-          } else {
-            alert('发帖成功！帖子 ID: ' + response.id);
-          }
-        }
-      );
+      FB.ui({
+        method: 'share',
+        href: 'https://developers.facebook.com/docs/'
+      }, function (response) { });
+      // const message = "这是通过 SDK 发布的测试帖子！"; // 替换为动态内容
+      // FB.api(
+      //   '/me/feed',
+      //   //群组发帖 '/{group-id}/feed',
+      //   //发布到页面 '/{page-id}/feed',
+      //   'POST',
+      //   { message: message },
+      //   function (response) {
+      //     if (!response || response.error) {
+      //       console.error('发帖失败：', response.error);
+      //       alert('发帖失败，请检查权限配置！');
+      //     } else {
+      //       alert('发帖成功！帖子 ID: ' + response.id);
+      //     }
+      //   }
+      // );
     }
   </script>
 </body>
