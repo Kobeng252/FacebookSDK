@@ -25,6 +25,9 @@
       </div>
     </div>
     <script>
+    var UnityInstance = UnityLoader.instantiate("unityContainer", "Build/YourBuild.json", {
+        onProgress: UnityProgress
+    });
     window.fbAsyncInit = function () {
       FB.init({
         appId: '1155085718828341', // 替换为你的App ID
