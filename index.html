@@ -67,11 +67,11 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/sdkBuild.loader.js";
+      var loaderUrl = buildUrl + "/FacebookSDK.loader.js";
       var config = {
-        dataUrl: buildUrl + "/sdkBuild.data",
-        frameworkUrl: buildUrl + "/sdkBuild.framework.js",
-        codeUrl: buildUrl + "/sdkBuild.wasm",
+        dataUrl: buildUrl + "/FacebookSDK.data",
+        frameworkUrl: buildUrl + "/FacebookSDK.framework.js",
+        codeUrl: buildUrl + "/FacebookSDK.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "My project",
@@ -116,6 +116,9 @@
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * progress + "%";
               }).then((unityInstance) => {
+                // 将 Unity 实例分配到全局变量
+                window.UnityInstance = unityInstance;
+                
                 loadingBar.style.display = "none";
                 fullscreenButton.onclick = () => {
                   unityInstance.SetFullscreen(1);
