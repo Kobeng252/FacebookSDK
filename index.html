@@ -45,6 +45,22 @@
       console.log('testFunction trigger');
     };
 
+    //进入游戏调用/或者可以放在 index.html中
+    function initAd() {
+        console.log('google init ad....');
+        let adsbygoogle = window['adsbygoogle'] || [];
+
+        if (adsbygoogle) {
+            window['adConfig']({
+                sound: 'on',
+                preloadAdBreaks: 'on',
+                onReady: () => {
+                    console.log("AdSense onReady");
+                },
+            })
+        }
+    };
+
       var container = document.querySelector("#unity-container");
       var canvas = document.querySelector("#unity-canvas");
       var loadingBar = document.querySelector("#unity-loading-bar");
