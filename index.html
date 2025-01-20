@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="TemplateData/style.css">
     <!-- 1.引入sdk -->
   <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+  <script async data-adbreak-test="on" data-admob-rewarded-slot="ca-app-pub-1234567890123456/22222222" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456&data-admob-rewarded-slot" crossorigin="anonymous"></script>
+  <script>window.adsbygoogle = window.adsbygoogle || []; var adBreak = adConfig = function(o) {adsbygoogle.push(o);} </script>
+
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
@@ -35,6 +39,10 @@
         version: 'v21.0' // 替换为最新的API版本
       });
       console.log('Facebook SDK initialized');
+    };
+
+    window.testFunction = function(){
+      console.log('testFunction trigger');
     };
 
       var container = document.querySelector("#unity-container");
