@@ -7,9 +7,9 @@
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
     <!-- 1.引入sdk -->
-  <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
+    <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
 
-  <script async data-adbreak-test="on" data-admob-rewarded-slot="ca-app-pub-1234567890123456/22222222" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456&data-admob-rewarded-slot" crossorigin="anonymous"></script>
+    <script async data-adbreak-test="on" data-admob-rewarded-slot="ca-app-pub-1234567890123456/22222222" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1234567890123456&data-admob-rewarded-slot" crossorigin="anonymous"></script>
 
   </head>
   <body>
@@ -29,93 +29,93 @@
       </div>
     </div>
     <script>
-      // 2.初始化fb sdk
-    window.fbAsyncInit = function () {
-      FB.init({
-        appId: '1155085718828341', // 替换为你的App ID
-        autoLogAppEvents: true,
-        xfbml: true,
-        version: 'v21.0' // 替换为最新的API版本
-      });
-      console.log('Facebook SDK initialized');
-    };
+        // 2.初始化fb sdk
+        window.fbAsyncInit = function () {
+          FB.init({
+            appId: '1155085718828341', // 替换为你的App ID
+            autoLogAppEvents: true,
+            xfbml: true,
+            version: 'v21.0' // 替换为最新的API版本
+          });
+          console.log('Facebook SDK initialized');
+        };
 
-    function testFunction(){
-      console.log('testFunction trigger');
-    };
+        function testFunction() {
+          console.log('testFunction trigger');
+        };
 
-    window.adsbygoogle = window.adsbygoogle || []; 
-    var adBreak = adConfig = function(o) {adsbygoogle.push(o);} 
+        window.adsbygoogle = window.adsbygoogle || [];
+        var adBreak = adConfig = function (o) { adsbygoogle.push(o); };
 
 
-    //进入游戏调用/或者可以放在 index.html中
-    function initAd() {
-        console.log('google init ad....');
-        let adsbygoogle = window['adsbygoogle'] || [];
+        //进入游戏调用/或者可以放在 index.html中
+        function initAd() {
+          console.log('google init ad....');
+          let adsbygoogle = window['adsbygoogle'] || [];
 
-        if (adsbygoogle) {
+          if (adsbygoogle) {
             window['adConfig']({
-                sound: 'on',
-                preloadAdBreaks: 'on',
-                onReady: () => {
-                    console.log("AdSense onReady");
-                },
-            })
-        }
-    };
+              sound: 'on',
+              preloadAdBreaks: 'on',
+              onReady: () => {
+                console.log("AdSense onReady");
+              },
+            });
+          }
+        };
 
-      //激励视频广告 call,fail 成功回调
-      function showRewardAd(call, fail) {
-        let isReward = false;
-        window["adBreak"] && window["adBreak"]({
+        //激励视频广告 call,fail 成功回调
+        function showRewardAd(call, fail) {
+          let isReward = false;
+          window["adBreak"] && window["adBreak"]({
             type: 'reward',  // ad shows at start of next level
             name: 'restart-game',
             beforeAd: () => {
-                //激励视频开始播放
+              //激励视频开始播放
             },  // You may also want to mute the game's sound.
             afterAd: () => {
-                if (isReward === true) {
-                    console.log('发放奖励');
-                    call();
-                }
+              if (isReward === true) {
+                console.log('发放奖励');
+                call();
+              }
             },    // resume the game flow.
             beforeReward: (showAdFn) => {
-                showAdFn && showAdFn();
+              showAdFn && showAdFn();
             },
             adDismissed: () => {
-                fail();
-                //中途关闭广告
+              fail();
+              //中途关闭广告
             },
             adViewed: () => {
-                isReward = true;
+              isReward = true;
             },
             adBreakDone: () => {
-                //Always called (if provided) even if an ad didn't show（始终调用，即使广告展示失败了）
+              //Always called (if provided) even if an ad didn't show（始终调用，即使广告展示失败了）
             }
-        });
-    };
+          });
+        };
 
-    function showTailAd() {
-        window["adBreak"]({
+        function showTailAd() {
+          window["adBreak"]({
             type: 'preroll',
             adBreakDone: (e) => {
-                console.log("前贴片显示失败:", e);
+              console.log("前贴片显示失败:", e);
             },
-        })
-    };
+          });
+        };
 
-    function showInterstitialAd() {
-        window["adBreak"] && window["adBreak"]({
+        function showInterstitialAd() {
+          window["adBreak"] && window["adBreak"]({
             type: 'browse',
             name: 'restart-game',
             beforeAd: () => {
-                console.log("插屏");
+              console.log("插屏");
             },  // You may also want to mute the game's sound.
             afterAd: () => {
-                console.log("插屏");
+              console.log("插屏");
             },    // resume the game flow.
-        });
-    };  
+          });
+        };  
 
       var container = document.querySelector("#unity-container");
       var canvas = document.querySelector("#unity-canvas");
@@ -149,11 +149,11 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/FacebookSDK.loader.js";
+      var loaderUrl = buildUrl + "/FacebookSDK_unity_build.loader.js";
       var config = {
-        dataUrl: buildUrl + "/FacebookSDK.data",
-        frameworkUrl: buildUrl + "/FacebookSDK.framework.js",
-        codeUrl: buildUrl + "/FacebookSDK.wasm",
+        dataUrl: buildUrl + "/FacebookSDK_unity_build.data",
+        frameworkUrl: buildUrl + "/FacebookSDK_unity_build.framework.js",
+        codeUrl: buildUrl + "/FacebookSDK_unity_build.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "My project",
